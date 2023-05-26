@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import CadastroPage from "./pages/CadastroPage/CadastroPage"
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import NewPostPage from "./pages/NewPostPage/NewPostPage"
+import VisitUserPage from "./pages/VisitUserPage/VisistUserPage";
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
                 <Route path="/profile" element={<ProfilePage />}></Route>
                 <Route path="/cadastro" element={<CadastroPage/>}></Route>
                 <Route path="/newpost" element={<NewPostPage/>}></Route>
+                <Route path="/visit" element={<VisitUserPage/>}></Route>
                 <Route path="/" element={<LoginPage/>}></Route>
             </Routes>
             

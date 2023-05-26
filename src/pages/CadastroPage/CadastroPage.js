@@ -42,7 +42,7 @@ function goTo(page) {
         <Header>
             <LogoContainer> 
                 {/* <img src={LogoHeaderIMG}></img> */}
-                <h2>ERrOR4o4</h2>
+                <h2>OldTest</h2>
             </LogoContainer>
             <Opcoes>                    
                 <EntrarButton onClick={() => goTo("/")}>Entrar</EntrarButton>
@@ -245,7 +245,7 @@ const SubmitButton = styled.button`
     color: grey;
 		margin-bottom: 25px;
 		margin-top: 10px;
-    width: 300px;
+    width: 320px;
 		padding: 0 10px;
 		font-family: 'Roboto';
 		font-size: 18px;

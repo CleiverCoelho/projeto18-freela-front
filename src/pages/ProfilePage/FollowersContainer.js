@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { HiX } from "react-icons/hi";
-import FotoProfile from "../CadastroPage/defaultPic.jpg"
+import FotoProfile from "../CadastroPage/defaultPic.jpg";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -17,15 +19,28 @@ export default function FollowersPage ({followerOn, setOpenFollowers}){
                     <HiX style={{color: "white", width: "30px", height: "30px"}}/>
                 </Botao>
                 <Space></Space>
-                <UserContainer>
-                    <div>
-                        <img src={FotoProfile}></img>
-                        <UserName>Cleiver</UserName>
-                    </div>
-                    <button>Following</button>
-                </UserContainer>
+                <User id={1}></User>
             </Followers>
         </FollowersContainer>
+    )
+}
+
+function User({id}){
+
+    const [userId, setUserId] = React.useState(id)
+    const navigate = useNavigate()
+
+    return (
+        <UserContainer>
+            <Link to={'/visit'}>
+                <div>
+                    <img src={FotoProfile}></img>
+                    <UserName>Cleiver</UserName>
+                </div>
+            </Link>
+            
+            <button>Following</button>
+        </UserContainer>
     )
 }
 
@@ -35,6 +50,9 @@ const UserName = styled.div`
 
     width: 80px;
     height: auto;
+    text-decoration: none;
+    color: white;
+    border: none;
 `
 
 const Space = styled.div`

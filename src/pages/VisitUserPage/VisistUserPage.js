@@ -1,12 +1,12 @@
 import styled from "styled-components"
 import { IoIosAddCircleOutline } from "react-icons/io";
-import PostsContainer from "./PostsContainer";
-import InfoProfileContainer from "./InfoPorifleContainer";
+import PostsContainer from "../ProfilePage/PostsContainer.js";
 import { useNavigate } from "react-router-dom";
 import { HiSearch } from "react-icons/hi";
-import FollowersPage from "./FollowersContainer";
+import FollowersPage from "../ProfilePage/FollowersContainer";
 import { HiHome } from "react-icons/hi2";
 import React from "react";
+import InfoVisitContainer from "./InfoVisitContainer.js"
 
 
 export default function ProfilePage () {
@@ -26,7 +26,7 @@ export default function ProfilePage () {
     }
 
     return (
-        <ProfilePageContainer>
+        <VisitPageContainer>
             <Header>
                 <h2>OldTest</h2>
                 <div>
@@ -36,15 +36,17 @@ export default function ProfilePage () {
                 </div>
             </Header>
             
-            <InfoProfileContainer setOpenFollowers={setOpenFollowers} setFollowersList={setFollowersList}></InfoProfileContainer>
+            <InfoVisitContainer setOpenFollowers={setOpenFollowers} setFollowersList={setFollowersList}></InfoVisitContainer>
             <FollowersPage followerOn={openFollowers} setOpenFollowers={setOpenFollowers}></FollowersPage>
 
-            <PostsContainer></PostsContainer>
-        </ProfilePageContainer>
+            <PostsContainer>
+
+            </PostsContainer>
+        </VisitPageContainer>
     )
 }
 
-const ProfilePageContainer = styled.div`
+const VisitPageContainer = styled.div`
     width: 100%;
     height: 100%;
     background-color: #0A0A16;
