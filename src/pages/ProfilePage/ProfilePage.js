@@ -5,6 +5,7 @@ import InfoProfileContainer from "./InfoPorifleContainer";
 import { useNavigate } from "react-router-dom";
 import { HiSearch } from "react-icons/hi";
 import FollowersPage from "./FollowersContainer";
+import { HiHome } from "react-icons/hi2";
 import React from "react";
 
 
@@ -29,6 +30,7 @@ export default function ProfilePage () {
             <Header>
                 <h2>ERrOR4o4</h2>
                 <div>
+                    <HiHome style={{color: "white", width: "30px", height: "30px"}}></HiHome>
                     <IoIosAddCircleOutline onClick={newPost} style={{color: "white", width: "30px", height: "30px"}}/>
                     <HiSearch onClick={searchUser} style={{color: "white", width: "30px", height: "30px"}}/>
                 </div>
@@ -68,7 +70,7 @@ const Header = styled.div`
     justify-content: space-between;
     align-items: center;
     div {
-        width: 100px;
+        width: 120px;
         margin-right: 50px;
         display: flex;
         justify-content: space-around;

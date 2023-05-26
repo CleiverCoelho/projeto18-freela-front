@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { HiX } from "react-icons/hi";
+import FotoProfile from "../CadastroPage/defaultPic.jpg"
+
 
 
 export default function FollowersPage ({followerOn, setOpenFollowers}){
@@ -14,11 +16,63 @@ export default function FollowersPage ({followerOn, setOpenFollowers}){
                 <Botao onClick={closeFollowers}>
                     <HiX style={{color: "white", width: "30px", height: "30px"}}/>
                 </Botao>
-                
+                <Space></Space>
+                <UserContainer>
+                    <div>
+                        <img src={FotoProfile}></img>
+                        <UserName>Cleiver</UserName>
+                    </div>
+                    <button>Following</button>
+                </UserContainer>
             </Followers>
         </FollowersContainer>
     )
 }
+
+const UserName = styled.div`
+    font-size: 20px;
+    font-weight: 500;
+
+    width: 80px;
+    height: auto;
+`
+
+const Space = styled.div`
+    height: 50px;
+`
+
+const UserContainer = styled.div`
+    width: 90%;
+    height: 30px;
+    color: white;
+    border-bottom: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    
+    button{
+        width: 80px;
+        border-radius: 5px;
+        background-color: grey;
+        color: white;
+    }
+
+    img {
+        margin-right: 13px;
+        width: 30px;
+        height: 30px;
+        border-radius: 20px;
+    }
+
+    div{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 120px;
+        height: auto;
+    }
+`
 const Botao = styled.div`
     width: 30px;
     height: 30px;
@@ -35,11 +89,13 @@ const Followers = styled.div`
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, .25);
     display: ${(props) => props.followerOn ? "flex" : "none"};
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 70px;
     border-radius: 9px;
     position: relative;
+
+    overflow-y: scroll;
 `
 
 const FollowersContainer = styled.div`
