@@ -7,7 +7,7 @@ import { ThreeDots } from "react-loader-spinner"
 
 export default function CadastroPage() {
 
-  const [form, setForm] = React.useState({nome: "", email: "", senha: "", confirmaSenha: "" , biografia: ""})
+  const [form, setForm] = React.useState({email: "", senha: ""})
   const [carregando, setCarregando] = React.useState(false)
   const navigate = useNavigate();
 
@@ -33,9 +33,9 @@ export default function CadastroPage() {
     console.log(body);
 
 }
-function goTo(page) {
-  navigate(page);
-}
+    function goTo(page) {
+        navigate(page);
+    }
 
   return (
     <SingUpContainer>
@@ -52,7 +52,7 @@ function goTo(page) {
         </Header>
           <CadastroContainer>
             <LogoCadastro> 
-                  <h2>Cadastro</h2>
+                  <h2>Login</h2>
               </LogoCadastro>
           <form onSubmit={efetuarCadastro}>
             <InputForm 
@@ -64,34 +64,10 @@ function goTo(page) {
                 required    
             ></InputForm>
             <InputForm 
-                placeholder="Nome"
-                type="text"
-                name="nome"
-                value={form.nome}
-                onChange={(event) => atualizaForm(event)}
-                required    
-            ></InputForm>
-            <InputForm
-                placeholder="Biografia"
-                type="text"
-                name="biografia"
-                value={form.biografia}
-                onChange={(event) => atualizaForm(event)}
-                required    
-            ></InputForm>
-            <InputForm 
                 placeholder="Senha"
                 type="password"
                 name="senha"
                 value={form.senha}
-                onChange={(event) => atualizaForm(event)}
-                required    
-            ></InputForm>
-            <InputForm
-                placeholder="Confirme a senha"
-                type="password"
-                name="confirmaSenha"
-                value={form.confirmaSenha}
                 onChange={(event) => atualizaForm(event)}
                 required    
             ></InputForm>
@@ -104,8 +80,9 @@ function goTo(page) {
                         wrapperStyle={{}}
                         wrapperClassName=""
                         visible={true}
-                    /> : "Cadastrar"}</SubmitButton>
+                    /> : "Entrar"}</SubmitButton>
           </form>
+          
 
         </CadastroContainer>
 
@@ -130,7 +107,6 @@ const LogoCadastro = styled.div`
         font-size: 40px;
     }
 `
-
 
 const InputForm = styled.input`
     background: #0A0A16;
