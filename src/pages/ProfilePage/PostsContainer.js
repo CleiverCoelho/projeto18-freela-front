@@ -1,26 +1,32 @@
 import styled from "styled-components"
-import FotoPost from "../CadastroPage/defaultPic.jpg"
+import React from "react"
+import dayjs from "dayjs"
 
-export default function PostsContainer () {
+export default function PostsContainer ({postsList}) {
+    const [posts, setPosts] = React.useState(postsList)
+
+    console.log(posts)
     return (
         <Posts>
-                <PostContainer>
-                    <img src={FotoPost}></img>
-                    <Interactions>
-                        <Curtidas>
-                            <strong>51</strong> curtidas
-                        </Curtidas>
-                        <Horario>
-                            12/05/2023 20h30
-                        </Horario>
-                    </Interactions>
-                    <Description>
-                        lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    </Description>
-                
-                </PostContainer>
+            {posts.map((post) => {
+                return (
+                    <PostContainer>
+                        <img src={post.imgUrl}></img>
+                        <Interactions>
+                            <Curtidas>
+                                <strong>{post.likes}</strong> curtidas
+                            </Curtidas>
+                            <Horario>
+                                {dayjs(post.createdAt).format('DD/MM/YYYY HH:mm').replace(':', 'h')}
+                            </Horario>
+                        </Interactions>
+                        <Description>
+                            {post.description}
+                        </Description>
+                    
+                    </PostContainer>
+                )
+            })}
             </Posts>
     )
 }
@@ -40,6 +46,7 @@ const Horario = styled.div`
     width: 150px;
     margin-top: 10px;
     height: auto;
+    margin-right: 10px;
 
     font-size: 20px;
     font-weight: 500;
@@ -71,6 +78,7 @@ const PostContainer = styled.div`
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
+    margin-bottom: 40px;
 
     img {
         border-radius: 10px;

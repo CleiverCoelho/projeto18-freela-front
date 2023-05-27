@@ -9,12 +9,14 @@ import { HiHome } from "react-icons/hi2";
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import react from "react";
 
 export default function ProfilePage () {
 
     const [openFollowers, setOpenFollowers] = React.useState(false);
     // na hora que clicar no seguires ou seguindo de acordo com isso vai mudar a lista que deverá aparecer no pop up
     const [followersList, setFollowersList] = React.useState("");
+    const [userInfo, setUserInfo] = React.useState({})
 
     const navigate = useNavigate();
 
@@ -38,13 +40,16 @@ export default function ProfilePage () {
       
           axios.get(`${process.env.REACT_APP_API_URL}/users`, config)
           .then((res) => {
-            
+            console.log(res.data)
+            setUserInfo(res.data)
           })
           .catch((err) => {
-
+            console.log(err)
           })
 
     }, [])
+
+    if(userInfo.name === undefined && userInfo.posts === undefined) return <>Loading</>
     
     return (
         <ProfilePageContainer>
@@ -57,10 +62,20 @@ export default function ProfilePage () {
                 </div>
             </Header>
             
-            <InfoProfileContainer setOpenFollowers={setOpenFollowers} setFollowersList={setFollowersList}></InfoProfileContainer>
+            <InfoProfileContainer 
+                profileName={userInfo.name} 
+                profileImage={userInfo.profileImageUrl} 
+                setOpenFollowers={setOpenFollowers} 
+                setFollowersList={setFollowersList}
+                postsLength={userInfo.posts.length}
+                followers={userInfo.followers}
+                following={userInfo.following}
+                biography={userInfo.biography}
+            >
+            </InfoProfileContainer>
             <FollowersPage followerOn={openFollowers} setOpenFollowers={setOpenFollowers}></FollowersPage>
 
-            <PostsContainer></PostsContainer>
+            <PostsContainer postsList={userInfo.posts}></PostsContainer>
         </ProfilePageContainer>
     )
 }

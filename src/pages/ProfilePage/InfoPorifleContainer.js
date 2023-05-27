@@ -1,8 +1,8 @@
-import FotoProfile from "../CadastroPage/defaultPic.jpg"
 import styled from "styled-components"
 
 
-export default function InfoProfileContainer ({setOpenFollowers, setFollowersList}) {
+export default function InfoProfileContainer ({setOpenFollowers, setFollowersList, 
+        profileImage, profileName, postsLength, followers, following, biography}) {
 
     function openFollowers(){
         setOpenFollowers(true)
@@ -16,33 +16,27 @@ export default function InfoProfileContainer ({setOpenFollowers, setFollowersLis
 
     return (
         <ProfileInfoContainer>
-                <img src={FotoProfile}></img>
+                <img src={profileImage}></img>
                 <InfosProfile>
-                    <Name>Cleiver</Name>
+                    <Name>{profileName}</Name>
                     <Numbers>
                         <Number>
                             <h3>Posts</h3>
-                            <p>10</p>
+                            <p>{postsLength}</p>
                         </Number>
                         <Number onClick={openFollowers}>
                             <h3>Followers</h3>
-                            <p>10</p>
+                            <p>{followers}</p>
                         </Number>
                         <Number onClick={openFollowing}>
                             <h3>Following</h3>
-                            <p>10</p>
+                            <p>{following}</p>
                         </Number>
                     </Numbers>
 
                 </InfosProfile>
                 <Biography>
-                    lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                    It has survived not only five centuries, but also the leap into electronic typesetting, 
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
-                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
-                    Aldus PageMaker including versions of Lorem Ips
+                    {biography}
                 </Biography>                
             </ProfileInfoContainer>
     )
