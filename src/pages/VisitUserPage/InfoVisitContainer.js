@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 // IMPORTANTE
 // FAZER VERIFICACAO SE VISITANTE É O PROPRIO PERFIL LOGADO]
-// SE SIM, OPACITY NONE NO BOTAO DE FOLLOW DIV
+// SE SIM, VAI PARA A PAGINA DE PROFILE
 
 export default function InfoProfileContainer ({setOpenFollowers, setFollowersList}) {
 

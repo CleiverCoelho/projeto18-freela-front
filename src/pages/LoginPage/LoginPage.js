@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom"
 import styled from "styled-components"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
-
+import axios from "axios"
 
 export default function CadastroPage() {
 
@@ -15,23 +14,27 @@ export default function CadastroPage() {
     setForm({...form, [event.target.name]: event.target.value})
   }
 
-  function efetuarCadastro(event){
+  function efetuarLogin(event){
     event.preventDefault();
     setCarregando(true)
 
-    if(form.senha !== form.confirmaSenha) {
-      return alert("senhas diferentes!")
-    }
-
     const body = {
         email: form.email,
-        nome: form.nome,
-        senha: form.senha,
-        cargo: form.cargo
+        password: form.senha
     }
-
-    console.log(body);
-
+    // 
+    axios.post(`${process.env.REACT_APP_API_URL}/login`, body)
+        .then((response) => {
+            localStorage.setItem("TOKEN", response.data.token);
+            navigate('/profile');
+            setCarregando(false);
+        })
+        .catch((err) => {
+          console.log("ERoo")
+            alert(err.response);
+            setCarregando(false);
+            navigate('/');
+        })
 }
     function goTo(page) {
         navigate(page);
@@ -54,7 +57,7 @@ export default function CadastroPage() {
             <LogoCadastro> 
                   <h2>Login</h2>
               </LogoCadastro>
-          <form onSubmit={efetuarCadastro}>
+          <form onSubmit={efetuarLogin}>
             <InputForm 
                 placeholder="Email"
                 type="email"

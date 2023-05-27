@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom"
 import styled from "styled-components"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
-
+import axios from "axios"
 
 export default function CadastroPage() {
 
@@ -25,14 +24,22 @@ export default function CadastroPage() {
 
     const body = {
         email: form.email,
-        nome: form.nome,
-        senha: form.senha,
-        cargo: form.cargo
+        password: form.senha,
+        confirmPassword: form.confirmaSenha,
+        name: form.nome,
+        biography: form.biografia
+    } 
+    axios.post(`${process.env.REACT_APP_API_URL}/cadastro`, body)
+        .then((response) => {
+            navigate('/');
+            setCarregando(false);
+        })
+        .catch((err) => {
+            setCarregando(false);
+            navigate('/');
+        })
+
     }
-
-    console.log(body);
-
-}
 function goTo(page) {
   navigate(page);
 }

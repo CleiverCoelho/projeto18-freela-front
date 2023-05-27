@@ -7,7 +7,8 @@ import { HiSearch } from "react-icons/hi";
 import FollowersPage from "./FollowersContainer";
 import { HiHome } from "react-icons/hi2";
 import React from "react";
-
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function ProfilePage () {
 
@@ -25,6 +26,26 @@ export default function ProfilePage () {
 
     }
 
+    if(localStorage.getItem("TOKEN") === undefined || localStorage.getItem("TOKEN") === null){
+        alert("Token Invalido")
+        navigate('/')
+    }
+
+    useEffect(() => {
+        const config = {
+            headers: { "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`}
+          }
+      
+          axios.get(`${process.env.REACT_APP_API_URL}/users`, config)
+          .then((res) => {
+            
+          })
+          .catch((err) => {
+
+          })
+
+    }, [])
+    
     return (
         <ProfilePageContainer>
             <Header>
