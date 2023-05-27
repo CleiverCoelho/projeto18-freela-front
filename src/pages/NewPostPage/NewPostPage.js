@@ -2,6 +2,7 @@ import styled from "styled-components"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
+import axios from "axios"
 
 
 
@@ -18,16 +19,25 @@ export default function NewPostPage () {
         event.preventDefault();
         setCarregando(true)
 
-        if(form.senha !== form.confirmaSenha) {
-            return alert("senhas diferentes!")
+        const body = {
+          description: form.descricao,
+          imgUrl: form.foto
         }
 
-        const body = {
-            email: form.email,
-            nome: form.nome,
-            senha: form.senha,
-            cargo: form.cargo
+        const config = {
+          headers: { "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`}
         }
+    
+        axios.post(`${process.env.REACT_APP_API_URL}/users/posts`, body, config)
+        .then((res) => {
+          navigate('/profile')
+          setCarregando(false)
+        })
+        .catch((err) => {
+          console.log(err)
+          navigate('/profile')
+          setCarregando(false)
+        })
     }
 
 
