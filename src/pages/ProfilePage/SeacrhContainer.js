@@ -6,45 +6,56 @@ import { useEffect } from "react";
 import axios from "axios";
 
 
-export default function FollowersPage ({followerOn, setOpenFollowers, type}){
+export default function SearchContainer ({searchOn, setSearchOn, searchInput}){
 
 
-    const [listConnection, setListConnection] = React.useState(undefined)
+    const [listSugestions, setListSugestions] = React.useState(undefined)
 
-    function closeFollowers(){
-        setOpenFollowers(false)
+    function closeSearchContainer(){
+        setSearchOn(false)
     }
 
+
     useEffect(() => {
+        if(searchOn === false) return
+
         const config = {
             headers: { "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`}
           } 
 
-          axios.get(`${process.env.REACT_APP_API_URL}/users/${type}`, config)
+          const body = {
+            userName: searchInput
+          }
+          console.log("INPUT VALUE::::: ", searchInput)
+
+          axios.post(`${process.env.REACT_APP_API_URL}/users/search`, body, config)
           .then((res) => {
-            console.log("RESPOSTA SEGUIDORES")
+            console.log("RESPOSTA DA SUGESTAO DE PESQUISA")
             console.log(res.data)
-            setListConnection(res.data)
+            setListSugestions(res.data)
           })
           .catch((err) => {
+            console.log("deu erro")
             console.log(err)
           })
 
-    }, [type])
+    }, [searchOn])
 
-    if(listConnection === undefined || listConnection === null) return <>Loading</>
+    if(listSugestions === undefined || listSugestions === null) return <>Loading</>
     
 
     return (
-        <FollowersContainer followerOn={followerOn}>
-            <Followers followerOn={followerOn}>
-                <Botao onClick={closeFollowers}>
+        <FollowersContainer searchOn={searchOn}>
+            <Followers searchOn={searchOn}>
+                <Botao onClick={closeSearchContainer}>
                     <HiX style={{color: "white", width: "30px", height: "30px"}}/>
                 </Botao>
+                <FoundSugestions>Sugestões Encontradas</FoundSugestions>
                 <Space></Space>
-                {listConnection.map((user) => {
+                {listSugestions.map((user) => {
                     return (
                         <User 
+                            key={user.id}
                             id={user.id} 
                             userImg={user.userImg} 
                             name={user.name}
@@ -61,7 +72,6 @@ export default function FollowersPage ({followerOn, setOpenFollowers, type}){
 function User({id, name, userImg, biography}){
 
     const [visitId, setUserId] = React.useState(id)
-    const navigate = useNavigate()
 
     return (
         <UserContainer>
@@ -74,6 +84,16 @@ function User({id, name, userImg, biography}){
         </UserContainer>
     )
 }
+
+const FoundSugestions = styled.div`
+    width: 220px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
 
 const UserName = styled.div`
     font-size: 20px;
@@ -138,7 +158,7 @@ const Followers = styled.div`
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, .25);
     transition: all .5s;
     transform: all .5s;
-    opacity: ${(props) => props.followerOn ? "1" : "0"};
+    opacity: ${(props) => props.searchOn ? "1" : "0"};
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -157,7 +177,7 @@ const FollowersContainer = styled.div`
     left: 0;
     background-color: rgba(50, 50, 50, 0.9);
     z-index: 1;
-    display: ${(props) => props.followerOn ? "flex" : "none"};
+    display: ${(props) => props.searchOn ? "flex" : "none"};
     justify-content: center;
     align-items: center;
     font-size: 22px;

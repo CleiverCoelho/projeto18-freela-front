@@ -98,7 +98,7 @@ const Posts = styled.div`
 
     background-color: #0A0A16;
 
-    margin-bottom: 200px;
+    margin-bottom: 600px;
     padding: 20px;
 
 `

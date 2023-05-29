@@ -5,13 +5,13 @@ export default function InfoProfileContainer ({setOpenFollowers, setFollowersLis
         profileImage, profileName, postsLength, followers, following, biography}) {
 
     function openFollowers(){
+        setFollowersList('followers')
         setOpenFollowers(true)
-        setFollowersList('Followers')
 
     }
     function openFollowing() {
+        setFollowersList('following')
         setOpenFollowers(true)
-        setFollowersList('Following')
     }
 
     return (

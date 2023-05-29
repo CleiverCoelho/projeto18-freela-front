@@ -3,12 +3,18 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { ThreeDots } from "react-loader-spinner"
 import axios from "axios"
+import { useEffect } from "react"
 
 export default function CadastroPage() {
 
   const [form, setForm] = React.useState({nome: "", email: "", senha: "", confirmaSenha: "" , biografia: ""})
   const [carregando, setCarregando] = React.useState(false)
   const navigate = useNavigate();
+
+
+
+
+
 
   function atualizaForm(event){
     setForm({...form, [event.target.name]: event.target.value})

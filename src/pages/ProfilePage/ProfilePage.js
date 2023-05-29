@@ -3,20 +3,22 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import PostsContainer from "./PostsContainer";
 import InfoProfileContainer from "./InfoPorifleContainer";
 import { useNavigate } from "react-router-dom";
-import { HiSearch } from "react-icons/hi";
+import { HiSearch, HiUser,HiOutlineCheckCircle } from "react-icons/hi";
 import FollowersPage from "./FollowersContainer";
-import { HiHome } from "react-icons/hi2";
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import react from "react";
+import SearchContainer from "./SeacrhContainer";
 
 export default function ProfilePage () {
 
     const [openFollowers, setOpenFollowers] = React.useState(false);
     // na hora que clicar no seguires ou seguindo de acordo com isso vai mudar a lista que deverá aparecer no pop up
-    const [followersList, setFollowersList] = React.useState("");
+    const [followersList, setFollowersList] = React.useState("followers");
+    const [searchUserDiv, setSearchUserDiv] = React.useState(false)
     const [userInfo, setUserInfo] = React.useState({})
+    const [searchOn, setSearchOn] = React.useState(false)
+    const [searchInput, setSearchInput] = React.useState("");
 
     const navigate = useNavigate();
 
@@ -25,7 +27,12 @@ export default function ProfilePage () {
     }
 
     function searchUser (){
-
+        if(searchUserDiv === true){
+            setSearchUserDiv(false)
+            setSearchOn(true);
+        }else{
+            setSearchUserDiv(true);
+        }
     }
 
     if(localStorage.getItem("TOKEN") === undefined || localStorage.getItem("TOKEN") === null){
@@ -40,11 +47,11 @@ export default function ProfilePage () {
       
           axios.get(`${process.env.REACT_APP_API_URL}/users`, config)
           .then((res) => {
-            console.log(res.data)
             setUserInfo(res.data)
           })
           .catch((err) => {
-            console.log(err)
+            console.log("RESPOSTA PROFILE")
+            console.log(err.response.data)
           })
 
     }, [])
@@ -55,8 +62,14 @@ export default function ProfilePage () {
         <ProfilePageContainer>
             <Header>
                 <h2>OldTest</h2>
+                <SearchBar 
+                    searchUserDiv={searchUserDiv}
+                    type="text"
+                    onChange={(event) => setSearchInput(event.target.value)}    
+                ></SearchBar>
+                
                 <div>
-                    <HiHome style={{color: "white", width: "30px", height: "30px"}}></HiHome>
+                    <HiUser style={{color: "white", width: "30px", height: "30px"}}></HiUser>
                     <IoIosAddCircleOutline onClick={newPost} style={{color: "white", width: "30px", height: "30px"}}/>
                     <HiSearch onClick={searchUser} style={{color: "white", width: "30px", height: "30px"}}/>
                 </div>
@@ -73,12 +86,22 @@ export default function ProfilePage () {
                 biography={userInfo.biography}
             >
             </InfoProfileContainer>
-            <FollowersPage followerOn={openFollowers} setOpenFollowers={setOpenFollowers}></FollowersPage>
-
+            <FollowersPage type={followersList} followerOn={openFollowers} setOpenFollowers={setOpenFollowers}></FollowersPage>
+            <SearchContainer searchOn={searchOn} setSearchOn={setSearchOn} searchInput={searchInput}></SearchContainer>
             <PostsContainer postsList={userInfo.posts}></PostsContainer>
         </ProfilePageContainer>
     )
 }
+
+
+const SearchBar = styled.input`
+    width: 300px;
+    height: 40px;
+    opacity: ${(props) => props.searchUserDiv ? "1" : "0"};
+    background-color: aliceblue;
+    transition: all .5s;
+
+`
 
 const ProfilePageContainer = styled.div`
     width: 100%;
